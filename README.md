@@ -11,9 +11,12 @@ chmod 744 init.sh preprocess.sh train.sh
 ```
 
 Then run init.sh in order to install necessary packages:
+```bash
 ./init.sh
+```
 
 Then, remove unnecessary files and split the data before preprocessing it:
+```bash
 find raw_data ! -name '*.ts' -type f -exec rm -f {} +
 scripts/splitData.sh raw_data 80
 cd raw_data
@@ -23,10 +26,13 @@ mv train_dir_tmp/test_dir train_dir_tmp/val_dir
 mv train_dir_tmp/* .
 cd ..
 rmdir raw_data/train_dir_tmp
+```
 
 To preprocess, run the following commands inside a shell of your ubuntu machine in order for the script to run in the background:
+```bash
 ./preprocess.sh &
 disown
+```
 
 Explanation: the & literal disconnects stdin from the process that runs the preprocess.sh script,
 and returns it to your shell. Then, the disown command removes the process from the shell's job control. This way,
