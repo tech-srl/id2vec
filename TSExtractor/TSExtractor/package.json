@@ -1,0 +1,5 @@
+{
+    "dependencies": {
+        "command-line-args": "^5.1.1"
+    }
+}
