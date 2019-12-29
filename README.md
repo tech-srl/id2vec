@@ -34,7 +34,7 @@ To preprocess, run the following commands inside a shell of your ubuntu machine 
 disown
 ```
 
-Explanation: the & literal disconnects stdin from the process that runs the preprocess.sh script,
+Explanation: the `&` literal disconnects stdin from the process that runs the preprocess.sh script,
 and returns it to your shell. Then, the disown command removes the process from the shell's job control. This way,
 even if your terminal session is terminated (as happens when your ssh connection to the machine is terminated)
 the process will continue running in the background.
