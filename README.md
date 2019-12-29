@@ -17,7 +17,8 @@ Then run init.sh in order to install necessary packages:
 ./init.sh
 ```
 
-Then, remove unnecessary files and split the data before preprocessing it:
+The data should be found in raw_data. raw_data should contain repositories with .ts files.
+Remove unnecessary files and split the data before preprocessing it:
 ```bash
 find raw_data ! -name '*.ts' -type f -exec rm -f {} +
 scripts/splitData.sh raw_data 80
