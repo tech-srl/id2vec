@@ -1,8 +1,8 @@
 # id2vec
 
-This project is based on code2vec.
+This project is based on code2vec: https://github.com/tech-srl/code2vec.git
 
-**Operating id2vec on an Ubuntu machine:**
+##### Operating id2vec on an Ubuntu machine
 
 First, run the following commands:
 
