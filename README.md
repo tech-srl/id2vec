@@ -1,6 +1,6 @@
 # id2vec
 
-**Operating id2vec on an Ubuntu machine:
+**Operating id2vec on an Ubuntu machine:**
 
 First, run the following commands:
 
