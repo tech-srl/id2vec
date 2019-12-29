@@ -1,5 +1,7 @@
 # id2vec
 
+This project is based on code2vec.
+
 **Operating id2vec on an Ubuntu machine:**
 
 First, run the following commands:
@@ -38,3 +40,8 @@ Explanation: the `&` literal disconnects stdin from the process that runs the pr
 and returns it to your shell. Then, the `disown` command removes the process from the shell's job control. This way,
 even if your terminal session is terminated (as happens when your ssh connection to the machine is terminated)
 the process will continue running in the background.
+
+Finally, to train the neural network run:
+```bash
+./train.sh
+```
