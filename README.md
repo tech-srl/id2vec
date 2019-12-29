@@ -17,7 +17,9 @@ Then run init.sh in order to install necessary packages:
 ./init.sh
 ```
 
-The data should be found in raw_data. raw_data should contain repositories with .ts files.
+### Preprocess
+
+The data should be found in a directory called raw_data; it should contain repositories with .ts files.
 Remove unnecessary files and split the data before preprocessing it:
 ```bash
 find raw_data ! -name '*.ts' -type f -exec rm -f {} +
@@ -41,6 +43,9 @@ Explanation: the `&` literal disconnects stdin from the process that runs the pr
 and returns it to your shell. Then, the `disown` command removes the process from the shell's job control. This way,
 even if your terminal session is terminated (as happens when your ssh connection to the machine is terminated)
 the process will continue running in the background.
+
+
+### Train
 
 Finally, to train the neural network run:
 ```bash
