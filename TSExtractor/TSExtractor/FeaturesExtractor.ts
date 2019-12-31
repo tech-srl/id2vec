@@ -1,7 +1,7 @@
 import { CommandLineValues } from './Common/CommandLineValues';
 import { ProgramFeatures } from './FeaturesEntities/ProgramFeatures';
 import { Common } from './Common/Common';
-import { Node, SyntaxKind, getDefaultCompilerOptions, createProgram, TypeFlags } from 'typescript';
+import { Node, SyntaxKind, getDefaultCompilerOptions, createProgram, TypeFlags, Program, TypeChecker, Type } from 'typescript';
 import { ts, SourceFile, Project } from 'ts-morph'
 
 export class FeatureExtractor {
@@ -9,9 +9,9 @@ export class FeatureExtractor {
 	private filePath: string;
 	private project: Project;
 	private sourceFile: SourceFile;
-	private root;
-	private program;
-	public checker;
+	private root: Node;
+	private program: Program;
+	public checker: TypeChecker;
 	private functionAndMethodEntries: Array<ts.Symbol>;
 	private functions: Array<Node>;
 	private static s_ParentTypeToAddChildId: Set<String>= new Set<String>();
@@ -166,9 +166,9 @@ export class FeatureExtractor {
 		programFeatures.setVariableName(identifier.getText());
 
 		// Find and set the identifier's type:
-		let idSymbol = identifiersSymbols.filter(id => id.getName()===identifier.getText())[0];
+		let idSymbol: ts.Symbol = identifiersSymbols.filter(id => id.getName()===identifier.getText())[0];
 		if (idSymbol == null) return programFeatures;
-		let currType = this.checker.getTypeOfSymbolAtLocation(idSymbol, identifier);
+		let currType: Type = this.checker.getTypeOfSymbolAtLocation(idSymbol, identifier);
 		if (currType.flags === TypeFlags.Object) {
 			programFeatures.setVariableType(currType.symbol.name);
 		}
@@ -178,6 +178,21 @@ export class FeatureExtractor {
 		else {
 			return programFeatures;
 		}
+
+		/**
+		 * TODO: get the identifier's type in the following way:
+		 * First get the identifier's symbol (=entry in the symbols table) using getSymbolAtLocation;
+		 * then get the Type using getTypeOfSymbolAtLocation;
+		 * then, get the actua type using typeToString.
+		 * Notice that typeToString might get special forms of types for different type of identifiers.
+		 * For example, for functions it returns also the types of the parameters yet we need to extract only
+		 * the return type.
+		 */
+		/* let idSymbol: ts.Symbol = this.checker.getSymbolAtLocation(identifier);
+		if (idSymbol == null) return programFeatures;
+		let currType: Type = this.checker.getTypeOfSymbolAtLocation(idSymbol, identifier);
+		let type: string = this.checker.typeToString(currType);
+		programFeatures.setVariableType(type); */
 
 		// The following loop will create paths between the identifier's leaves themselves:
 		for (let i: number = 0; i < idLeaves.length; i++) {
