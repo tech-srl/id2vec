@@ -2,6 +2,10 @@
 
 This project is based on code2vec: https://github.com/tech-srl/code2vec.git
 
+#### TSExtractor
+Writers: Izo Sakallah, Noa Cohen
+Guidance: Uri Alon, Eran Yahav
+
 ## Operating id2vec on an Ubuntu machine
 
 First, run the following commands:
